@@ -1,6 +1,7 @@
 🎨 SVG Design Processor
 
 🎨 SVG Design Processor
+
 https://img.shields.io/badge/node-%253E%253D18-brightgreen?style=for-the-badge&logo=node.js
 https://img.shields.io/badge/typescript-%255E5.0-blue?style=for-the-badge&logo=typescript
 https://img.shields.io/badge/react-18.2.0-61DAFB?style=for-the-badge&logo=react
@@ -10,12 +11,11 @@ https://img.shields.io/badge/docker-compose-2496ED?style=for-the-badge&logo=dock
 https://img.shields.io/badge/license-ISC-blue?style=for-the-badge&logo=opensourceinitiative
 
 https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
-https://img.shields.io/badge/tests-passing-brightgreen?style=flat-square
-https://img.shields.io/badge/code%2520style-prettier-ff69b4?style=flat-square
 https://img.shields.io/badge/Maintained%253F-yes-green.svg?style=flat-square
 https://img.shields.io/github/last-commit/SergeyReizman/svg-processor?style=flat-square
 https://img.shields.io/github/issues/SergeyReizman/svg-processor?style=flat-square
 https://img.shields.io/github/issues-pr/SergeyReizman/svg-processor?style=flat-square
+https://img.shields.io/github/languages/code-size/SergeyReizman/svg-processor?style=flat-square
 
 https://img.shields.io/github/actions/workflow/status/SergeyReizman/svg-processor/backend.yml?branch=main&label=Backend&logo=github&style=flat-square
 https://img.shields.io/github/actions/workflow/status/SergeyReizman/svg-processor/frontend.yml?branch=main&label=Frontend&logo=github&style=flat-square
@@ -26,6 +26,9 @@ https://img.shields.io/codecov/c/github/SergeyReizman/svg-processor?style=flat-s
 https://snyk.io/test/github/SergeyReizman/svg-processor/badge.svg?style=flat-square
 https://app.fossa.com/api/projects/github.com/SergeyReizman/svg-processor.svg?type=shield&style=flat-square
 https://sonarcloud.io/api/project_badges/measure?project=SergeyReizman_svg-processor&metric=alert_status&style=flat-square
+
+📈 Repository Stats
+<p align="center"> <a href="https://github.com/SergeyReizman/svg-processor/stargazers"> <img src="https://img.shields.io/github/stars/SergeyReizman/svg-processor?style=for-the-badge&logo=github&color=yellow" alt="Stars"> </a> <a href="https://github.com/SergeyReizman/svg-processor/network/members"> <img src="https://img.shields.io/github/forks/SergeyReizman/svg-processor?style=for-the-badge&logo=github&color=blue" alt="Forks"> </a> <a href="https://github.com/SergeyReizman/svg-processor/watchers"> <img src="https://img.shields.io/github/watchers/SergeyReizman/svg-processor?style=for-the-badge&logo=github&color=green" alt="Watchers"> </a> <a href="https://github.com/SergeyReizman/svg-processor/contributors"> <img src="https://img.shields.io/github/contributors/SergeyReizman/svg-processor?style=for-the-badge&logo=github&color=orange" alt="Contributors"> </a> </p><p align="center"> <a href="https://github.com/SergeyReizman/svg-processor/network/dependencies"> <img src="https://img.shields.io/librariesio/github/SergeyReizman/svg-processor?style=for-the-badge&logo=librariesio" alt="Dependencies"> </a> <a href="https://github.com/SergeyReizman/svg-processor/blob/main/LICENSE"> <img src="https://img.shields.io/github/license/SergeyReizman/svg-processor?style=for-the-badge&logo=opensourceinitiative" alt="License"> </a> <a href="https://github.com/SergeyReizman/svg-processor/releases"> <img src="https://img.shields.io/github/v/release/SergeyReizman/svg-processor?style=for-the-badge&logo=github" alt="Release"> </a> <a href="https://github.com/SergeyReizman/svg-processor/commits/main"> <img src="https://img.shields.io/github/commit-activity/m/SergeyReizman/svg-processor?style=for-the-badge&logo=github" alt="Commit Activity"> </a> </p>
 
 A full-stack application that allows users to upload SVG files containing rectangles, process them on the backend, store structured data in MongoDB, and visualize the results interactively using an HTML Canvas interface.
 
