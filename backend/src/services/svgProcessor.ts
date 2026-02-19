@@ -1,6 +1,5 @@
 import { parseStringPromise } from 'xml2js';
 import { IRectangle } from '../models/Design';
-import fs from 'fs/promises';
 
 export interface ProcessedSVG {
   svgWidth: number;
@@ -11,11 +10,9 @@ export interface ProcessedSVG {
   issues: string[];
 }
 
-export async function processSVG(filePath: string): Promise<ProcessedSVG> {
+export async function processSVG(fileContent: string): Promise<ProcessedSVG> {
   try {
-    // Read the SVG file
-    const fileContent = await fs.readFile(filePath, 'utf-8');
-    console.log('File content:', fileContent.substring(0, 100) + '...');
+    console.log('Processing SVG content, length:', fileContent.length);
     
     // Parse with simplest options
     const result = await parseStringPromise(fileContent);
@@ -87,7 +84,7 @@ export async function processSVG(filePath: string): Promise<ProcessedSVG> {
       issues
     };
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error processing SVG:', error);
     throw new Error('Failed to process SVG');
   }
 }
