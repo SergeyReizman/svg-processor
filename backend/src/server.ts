@@ -2,36 +2,21 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import multer from 'multer';
-import path from 'path';
-import fs from 'fs';
 import { Design } from './models/Design';
 import { processSVG } from './services/svgProcessor';
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Create uploads folder if it doesn't exist
-const uploadDir = 'uploads';
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
-
-// Multer setup for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-
+// Configure multer for memory storage (works on Vercel)
+const storage = multer.memoryStorage();
 const upload = multer({ 
   storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
   fileFilter: (req, file, cb) => {
     if (file.mimetype === 'image/svg+xml' || file.originalname.endsWith('.svg')) {
       cb(null, true);
@@ -40,6 +25,32 @@ const upload = multer({
     }
   }
 });
+
+// Helper function to process SVG from buffer
+async function processSVGFromBuffer(buffer: Buffer, originalName: string) {
+  const fileContent = buffer.toString('utf-8');
+  
+  // Parse the SVG
+  const result = await processSVG(fileContent);
+  
+  // Create design record (no file path needed)
+  const design = new Design({
+    filename: `${Date.now()}-${originalName}`,
+    originalName: originalName,
+    status: 'processed',
+    svgWidth: result.svgWidth,
+    svgHeight: result.svgHeight,
+    items: result.items,
+    itemsCount: result.itemsCount,
+    coverageRatio: result.coverageRatio,
+    issues: result.issues,
+    rawSvgPath: 'memory', // Indicates it was processed from memory
+    createdAt: new Date()
+  });
+
+  await design.save();
+  return design;
+}
 
 // ============= API ROUTES =============
 
@@ -55,44 +66,33 @@ app.post('/api/designs/upload', upload.single('svg'), async (req, res) => {
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
-    // Create design record
-    const design = new Design({
-      filename: req.file.filename,
-      originalName: req.file.originalname,
-      status: 'pending',
-      rawSvgPath: req.file.path,
-      itemsCount: 0,
-      issues: []
-    });
-
-    await design.save();
-
-    // Try to process the SVG
     try {
-      const result = await processSVG(req.file.path);
+      // Process SVG directly from memory buffer
+      const design = await processSVGFromBuffer(req.file.buffer, req.file.originalname);
       
-      // Update with processed data
-      design.status = 'processed';
-      design.svgWidth = result.svgWidth;
-      design.svgHeight = result.svgHeight;
-      design.items = result.items;
-      design.itemsCount = result.itemsCount;
-      design.coverageRatio = result.coverageRatio;
-      design.issues = result.issues;
-      
-      await design.save();
+      res.json({ 
+        message: 'Upload successful', 
+        id: design._id 
+      });
     } catch (err) {
-      design.status = 'error';
-      design.issues = ['PROCESSING_FAILED'];
+      console.error('Processing error:', err);
+      
+      // Create error record
+      const design = new Design({
+        filename: `${Date.now()}-${req.file.originalname}`,
+        originalName: req.file.originalname,
+        status: 'error',
+        issues: ['PROCESSING_FAILED'],
+        rawSvgPath: 'memory',
+        createdAt: new Date()
+      });
       await design.save();
+      
+      res.status(500).json({ error: 'Failed to process SVG' });
     }
 
-    res.json({ 
-      message: 'Upload successful', 
-      id: design._id 
-    });
-
   } catch (error) {
+    console.error('Upload error:', error);
     res.status(500).json({ error: 'Upload failed' });
   }
 });
@@ -122,17 +122,22 @@ app.get('/api/designs/:id', async (req, res) => {
   }
 });
 
-// Serve uploaded files
-app.use('/uploads', express.static('uploads'));
-
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/svg-processor')
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/svg-processor';
+
+mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log('✅ MongoDB connected');
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
-    });
+    // Only listen when not on Vercel
+    if (process.env.NODE_ENV !== 'production') {
+      app.listen(PORT, () => {
+        console.log(`🚀 Server running on http://localhost:${PORT}`);
+      });
+    }
   })
   .catch(err => {
     console.error('❌ MongoDB connection error:', err);
   });
+
+// Export for Vercel
+export default app;
