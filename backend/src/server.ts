@@ -123,7 +123,7 @@ app.get('/api/designs/:id', async (req, res) => {
 });
 
 // Connect to MongoDB
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/svg-processor';
+const MONGODB_URI = process.env.DATABASE_URL || process.env.MONGODB_URI || 'mongodb://localhost:27017/svg-processor';
 
 mongoose.connect(MONGODB_URI)
   .then(() => {
