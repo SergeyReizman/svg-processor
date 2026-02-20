@@ -1,7 +1,5 @@
 🎨 SVG Design Processor
 
-🎨 SVG Design Processor
-
 https://img.shields.io/badge/node-%253E%253D18-brightgreen?style=for-the-badge&logo=node.js
 https://img.shields.io/badge/typescript-%255E5.0-blue?style=for-the-badge&logo=typescript
 https://img.shields.io/badge/react-18.2.0-61DAFB?style=for-the-badge&logo=react
@@ -36,7 +34,14 @@ This project demonstrates end-to-end engineering across backend, frontend, datab
 
 🚀 Demo
 
-Add screenshots or a live demo link here
+A```markdown
+## 🚀 Live Demo
+
+**Frontend:** [https://svg-processor-mm7q.vercel.app](https://svg-processor-mm7q.vercel.app)
+
+**Backend API:** [https://svg-processor-peach.vercel.app/api/test](https://svg-processor-peach.vercel.app/api/test)
+
+![App Screenshot](screenshot.png)
 
 ✨ Features
 
@@ -90,6 +95,56 @@ Data stored in MongoDB
 Frontend renders interactive preview
 
 ---
+
+## 🚀 Live Demo
+
+The application is deployed and live! You can access it here:
+
+### 🌐 Production URLs
+
+| Component | URL |
+|-----------|-----|
+| **Frontend Application** | [https://svg-processor-mm7q.vercel.app](https://svg-processor-mm7q.vercel.app) |
+| **Backend API** | [https://svg-processor-peach.vercel.app](https://svg-processor-peach.vercel.app) |
+| **API Health Check** | [https://svg-processor-peach.vercel.app/api/test](https://svg-processor-peach.vercel.app/api/test) |
+
+### ☁️ Cloud Infrastructure
+
+- **Frontend Hosting**: [Vercel](https://vercel.com) (Serverless React Application)
+- **Backend Hosting**: [Vercel](https://vercel.com) (Serverless Node.js/Express API)
+- **Database**: [Railway](https://railway.app) (MongoDB Atlas-compatible)
+- **Source Code**: [GitHub](https://github.com/SergeyReizman/svg-processor)
+
+### 📸 Screenshot
+
+![SVG Processor Demo](screenshot.png) *← Add a screenshot of your working app here*
+
+### 🎯 Deployment Architecture
+
+```mermaid
+graph LR
+    A[User Browser] --> B[Vercel Frontend<br/>svg-processor-mm7q.vercel.app]
+    B --> C[Vercel Backend API<br/>svg-processor-peach.vercel.app]
+    C --> D[Railway MongoDB<br/>shinkansen.proxy.rlwy.net:38854]
+🔧 Environment Variables (Production)
+Variable	Purpose	Value
+DATABASE_URL	MongoDB connection	mongodb://mongo:...@shinkansen.proxy.rlwy.net:38854/svg_designs
+REACT_APP_API_URL	Backend URL for frontend	https://svg-processor-peach.vercel.app
+🚦 Deployment Status
+https://img.shields.io/badge/vercel-deployed-black?logo=vercel
+https://img.shields.io/badge/railway-mongodb-green?logo=railway
+https://img.shields.io/badge/github-source-blue?logo=github
+
+📝 Deployment Notes
+The application is deployed using:
+
+Vercel for both frontend and backend (monorepo structure with separate root directories)
+
+Railway for MongoDB with public networking enabled
+
+Environment variables configured in Vercel dashboard
+
+Automatic deployments triggered by pushes to main branch
 
 ## 🧰 Tech Stack
 
