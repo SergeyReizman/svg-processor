@@ -84,7 +84,11 @@ This project demonstrates end-to-end engineering across backend, frontend, datab
 🚀 Demo
 
 A```markdown
-## 🚀 Live Demo
+## 🎬 Demo
+
+Upload → Processing → Interactive Visualization
+
+![SVG Processor Demo](docs/demo.gif)
 
 ## 🚀 Live Project
 
@@ -148,6 +152,63 @@ Data stored in MongoDB
 Frontend renders interactive preview
 
 ---
+
+🧠 Technical Decisions
+
+Why Canvas Instead of SVG Rendering?
+
+Better performance for large datasets
+
+Fine-grained hover detection
+
+Easier coordinate transformations
+
+Why a NoSQL Database?
+
+Flexible schema for rectangle items
+
+Easy evolution of data model
+
+Efficient aggregation for metrics
+
+Why Serverless Deployment?
+
+Automatic scaling
+
+Minimal infrastructure maintenance
+
+Fast global delivery via CDN
+
+
+🔐 Security Considerations
+
+SVG and file uploads introduce real risks.
+
+Implemented protections:
+
+File type validation
+
+File size limits (5MB)
+
+Sanitized file handling
+
+Controlled upload directory
+
+XML parser configured to prevent XXE attacks
+
+Input validation before database storage
+
+
+📊 Monitoring & Observability
+
+Structured backend logging
+
+Health check endpoint (/api/test)
+
+Error boundaries in frontend
+
+Ready for integration with monitoring tools (e.g., Sentry)
+
 
 ## 🚀 Live Demo
 
@@ -222,6 +283,34 @@ Automatic deployments triggered by pushes to main branch
 * Axios
 
 ---
+
+🔐 Environment Variables
+
+Create .env in /backend:
+
+PORT=5000
+NODE_ENV=development
+
+MONGODB_URI=mongodb://localhost:27017/svg_designs
+
+UPLOAD_DIR=uploads
+MAX_FILE_SIZE=5242880
+☁️ Deployment
+Production Architecture
+graph LR
+    A[User Browser] --> B[Frontend Hosting]
+    B --> C[Backend API]
+    C --> D[Managed Database]
+
+Deployment approach:
+
+Frontend and backend deployed separately
+
+Managed database hosting
+
+Environment variables configured in platform dashboard
+
+Automatic CI/CD on push to main branch
 
 📁 Project Structure
 
@@ -334,7 +423,9 @@ MAX_FILE_SIZE=5242880  # 5MB in bytes
 | GET    | /api/designs/:id    | Get design by ID | Single design object             |
 
 🧑‍💻 Usage Guide
+
 Upload an SVG File
+
 Open http://localhost:3000 in your browser
 
 Navigate to the "Upload" tab
@@ -346,6 +437,7 @@ Wait for upload and processing to complete
 View success notification and auto-redirect to designs list
 
 View All Designs
+
 Click on the "Designs" tab
 
 Browse the table of all uploaded designs
@@ -355,6 +447,7 @@ Check status indicators (processed/pending/error)
 Click "View" on any design to see details
 
 Explore Design Details
+
 The design view includes:
 
 Interactive Canvas with rectangle preview
