@@ -125,7 +125,17 @@ app.get('/api/designs/:id', async (req, res) => {
 // Connect to MongoDB
 const MONGODB_URI = process.env.DATABASE_URL || process.env.MONGODB_URI || 'mongodb://localhost:27017/svg-processor';
 
-mongoose.connect(MONGODB_URI)
+mongoose.connect(MONGODB_URI, {
+  dbName: 'svg_designs',
+  authSource: 'admin',
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
+  connectTimeoutMS: 10000,
+  minPoolSize: 1,
+  maxPoolSize: 5,
+  retryWrites: true,
+  retryReads: true
+})
   .then(() => {
     console.log('✅ MongoDB connected');
     // Only listen when not on Vercel
