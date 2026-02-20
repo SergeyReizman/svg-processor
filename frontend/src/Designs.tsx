@@ -21,7 +21,7 @@ const Designs: React.FC = () => {
 
   const fetchDesigns = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/designs');
+      const res = await axios.get('https://svg-processor-peach.vercel.app/api/designs');
       setDesigns(res.data);
     } catch (error) {
       console.error('Failed to fetch designs');
@@ -51,7 +51,7 @@ const Designs: React.FC = () => {
   return (
     <div>
       <h1 className="text-3xl font-bold mb-8">Designs</h1>
-      
+
       {designs.length === 0 ? (
         <p className="text-gray-500">No designs yet</p>
       ) : (
@@ -70,13 +70,13 @@ const Designs: React.FC = () => {
                 <tr key={design._id} className="border-t hover:bg-gray-50">
                   <td className="px-6 py-4">{design.originalName}</td>
                   <td className="px-6 py-4">
-                    <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(design.status, design.issues)}`}>
+                    <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(design.status, design.issues)}`}>     
                       {getStatusText(design.status, design.issues)}
                     </span>
                   </td>
                   <td className="px-6 py-4">{design.itemsCount}</td>
                   <td className="px-6 py-4">
-                    <Link 
+                    <Link
                       to={`/designs/${design._id}`}
                       className="text-blue-500 hover:text-blue-700"
                     >

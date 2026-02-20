@@ -17,7 +17,7 @@ const Upload: React.FC = () => {
     toast.loading('Uploading...', { id: 'upload' });
 
     try {
-      const res = await axios.post('http://localhost:5000/api/designs/upload', formData);
+      const res = await axios.post('https://svg-processor-peach.vercel.app/api/designs/upload', formData);
       toast.success('Upload successful!', { id: 'upload' });
       navigate('/designs');
     } catch (error) {

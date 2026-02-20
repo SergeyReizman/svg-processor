@@ -44,7 +44,7 @@ const DesignView: React.FC = () => {
 
   const fetchDesign = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/designs/${id}`);
+      const res = await axios.get(`https://svg-processor-peach.vercel.app/api/designs/${id}`);
       setDesign(res.data);
     } catch (error) {
       console.error('Failed to fetch design');
@@ -170,12 +170,12 @@ const DesignView: React.FC = () => {
         {/* Info */}
         <div className="bg-white p-4 rounded-lg shadow">
           <h2 className="font-bold text-lg mb-4">Details</h2>
-          
+
           <div className="space-y-2">
             <p><span className="text-gray-600">Dimensions:</span> {design.svgWidth} × {design.svgHeight}</p>
             <p><span className="text-gray-600">Rectangles:</span> {design.itemsCount}</p>
             <p><span className="text-gray-600">Coverage:</span> {(design.coverageRatio * 100).toFixed(1)}%</p>
-            
+
             {design.issues.length > 0 && (
               <div>
                 <p className="text-gray-600">Issues:</p>
