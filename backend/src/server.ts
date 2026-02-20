@@ -122,19 +122,21 @@ app.get('/api/designs/:id', async (req, res) => {
   }
 });
 
-// Connect to MongoDB
+// Connect to MongoDB - FIXED VERSION with optimized settings
 const MONGODB_URI = process.env.DATABASE_URL || process.env.MONGODB_URI || 'mongodb://localhost:27017/svg-processor';
 
 mongoose.connect(MONGODB_URI, {
   dbName: 'svg_designs',
   authSource: 'admin',
-  serverSelectionTimeoutMS: 5000,
-  socketTimeoutMS: 45000,
-  connectTimeoutMS: 10000,
+  serverSelectionTimeoutMS: 10000,
+  socketTimeoutMS: 60000,
+  connectTimeoutMS: 20000,
   minPoolSize: 1,
-  maxPoolSize: 5,
+  maxPoolSize: 10,
   retryWrites: true,
-  retryReads: true
+  retryReads: true,
+  bufferCommands: true,
+  bufferMaxEntries: 0
 })
   .then(() => {
     console.log('✅ MongoDB connected');
