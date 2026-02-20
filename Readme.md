@@ -81,6 +81,142 @@ A full-stack application that allows users to upload SVG files containing rectan
 
 This project demonstrates end-to-end engineering across backend, frontend, database, and visualization layers.
 
+📑 Table of Contents
+
+🎬 Demo
+
+🚀 Live Project
+
+✨ Features
+
+🏗️ Architecture
+
+Processing Flow
+
+🧠 Technical Decisions
+
+🔐 Security Considerations
+
+📊 Monitoring & CI
+
+🧪 Development Tips
+
+🚀 Live Demo
+
+☁️ Deployment & Infrastructure
+
+📸 Screenshot
+
+🎯 Deployment Architecture
+
+🔧 Environment Variables (Production)
+
+🚦 Deployment Status
+
+📝 Deployment Notes
+
+🧰 Tech Stack
+
+Backend
+
+Frontend
+
+🔐 Environment Variables
+
+☁️ Deployment
+
+📁 Project Structure
+
+✅ Prerequisites
+
+⚙️ Installation
+
+1️⃣ Clone Repository
+
+2️⃣ Backend Setup
+
+3️⃣ Frontend Setup
+
+📡 API Endpoints
+
+🧑‍💻 Usage Guide
+
+Upload an SVG File
+
+View All Designs
+
+Explore Design Details
+
+📄 Example SVG
+
+Valid SVG (All rectangles within bounds)
+
+Valid SVG with Multiple Rectangles
+
+Out of Bounds (Rectangle exceeds canvas)
+
+Empty SVG (No rectangles)
+
+🔍 Features in Detail
+
+Backend Processing Pipeline
+
+Canvas Rendering Logic
+
+Validation Rules
+
+🗄️ Database Schema
+
+🛠️ Troubleshooting
+
+MongoDB Connection Issues
+
+Backend Won't Start
+
+Frontend Can't Connect to Backend
+
+Common Errors and Solutions
+
+🧪 Development
+
+Running in Development Mode
+
+Useful Commands
+
+📦 Production Build
+
+Backend
+
+Frontend
+
+Docker Production Setup (Optional)
+
+🤝 Contributing
+
+Coding Standards
+
+📜 License
+
+👨‍💻 Author
+
+⭐ Reviewer Notes (For Hiring Teams)
+
+Technical Skills
+
+Software Engineering Best Practices
+
+Problem Solving
+
+🔮 Possible Future Improvements
+
+Short-term
+
+Long-term
+
+🙏 Acknowledgments
+
+📊 Performance Metrics
+
 🚀 Demo
 
 A```markdown
