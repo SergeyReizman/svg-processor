@@ -128,6 +128,11 @@ Out-of-bounds rectangles
 
 🏗️ Architecture
 
+graph LR
+    A[User Browser] --> B[Frontend: React + Canvas]
+    B --> C[Backend: Node.js + Express]
+    C --> D[Database: MongoDB]
+
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
 │                 │     │                 │     │                 │
 │   Frontend      │────▶│    Backend      │────▶│    Database     │
@@ -203,15 +208,28 @@ XML parser configured to prevent XXE attacks
 Input validation before database storage
 
 
-📊 Monitoring & Observability
+📊 Monitoring & CI
 
-Structured backend logging
+GitHub Actions: Backend & Frontend workflows
 
-Health check endpoint (/api/test)
+CodeQL vulnerability scanning
 
-Error boundaries in frontend
+Code coverage: Codecov
 
-Ready for integration with monitoring tools (e.g., Sentry)
+Security: Snyk, FOSSA
+
+SonarCloud alert monitoring
+
+
+🧪 Development Tips
+
+Backend: npm run dev (auto-reload)
+
+Frontend: npm start (hot reload)
+
+Build for production: npm run build (backend/frontend)
+
+Reset MongoDB: docker-compose down -v
 
 
 ## 🚀 Live Demo
