@@ -26,25 +26,25 @@ const upload = multer({
   }
 });
 
-// Helper to check connection state
-const waitForConnection = async (timeout = 5000): Promise<boolean> => {
+// Helper to check connection state with longer timeout
+const waitForConnection = async (timeout = 30000): Promise<boolean> => {
   const start = Date.now();
   while (mongoose.connection.readyState !== 1) {
     if (Date.now() - start > timeout) {
-      console.error('Connection timeout');
+      console.error('Connection timeout after', timeout, 'ms');
       return false;
     }
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise(resolve => setTimeout(resolve, 500));
   }
   return true;
 };
 
-// Helper function to process SVG from buffer
+// Helper function to process SVG from buffer with retry logic
 async function processSVGFromBuffer(buffer: Buffer, originalName: string) {
-  // Wait for connection to be ready
-  const isConnected = await waitForConnection();
+  // Wait for connection to be ready with longer timeout
+  const isConnected = await waitForConnection(30000);
   if (!isConnected) {
-    throw new Error('Database connection not ready');
+    throw new Error('Database connection not ready after 30 seconds');
   }
 
   const fileContent = buffer.toString('utf-8');
@@ -67,8 +67,20 @@ async function processSVGFromBuffer(buffer: Buffer, originalName: string) {
     createdAt: new Date()
   });
 
-  await design.save();
-  return design;
+  // Try to save with retries
+  let lastError;
+  for (let i = 0; i < 3; i++) {
+    try {
+      await design.save();
+      return design;
+    } catch (err) {
+      lastError = err;
+      console.log(`Save attempt ${i + 1} failed, retrying...`);
+      await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1))); // Exponential backoff
+    }
+  }
+  
+  throw lastError || new Error('Failed to save after 3 attempts');
 }
 
 // ============= API ROUTES =============
@@ -105,7 +117,13 @@ app.post('/api/designs/upload', upload.single('svg'), async (req, res) => {
         rawSvgPath: 'memory',
         createdAt: new Date()
       });
-      await design.save();
+      
+      // Try to save error record with retry
+      try {
+        await design.save();
+      } catch (saveErr) {
+        console.error('Could not save error record:', saveErr);
+      }
       
       res.status(500).json({ error: 'Failed to process SVG' });
     }
@@ -147,9 +165,9 @@ const MONGODB_URI = process.env.DATABASE_URL || process.env.MONGODB_URI || 'mong
 mongoose.connect(MONGODB_URI, {
   dbName: 'svg_designs',
   authSource: 'admin',
-  serverSelectionTimeoutMS: 10000,
-  socketTimeoutMS: 60000,
-  connectTimeoutMS: 20000,
+  serverSelectionTimeoutMS: 30000,
+  socketTimeoutMS: 120000,
+  connectTimeoutMS: 30000,
   minPoolSize: 1,
   maxPoolSize: 10,
   retryWrites: true,
