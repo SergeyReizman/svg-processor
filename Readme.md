@@ -88,7 +88,7 @@ A```markdown
 
 Upload → Processing → Interactive Visualization
 
-[![SVG Processor Demo](docs/demo_thumbnail.png)](docs/svg_processor_demo.mp4)
+[![SVG Processor Demo](https://github.com/SergeyReizman/svg-processor/raw/main/docs/demo_thumbnail.png)](https://github.com/SergeyReizman/svg-processor/raw/main/docs/svg_processor_demo.mp4)
 
 ![SVG Processor Demo](docs/demo.gif)
 
