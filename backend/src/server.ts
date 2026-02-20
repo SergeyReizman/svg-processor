@@ -26,8 +26,27 @@ const upload = multer({
   }
 });
 
+// Helper to check connection state
+const waitForConnection = async (timeout = 5000): Promise<boolean> => {
+  const start = Date.now();
+  while (mongoose.connection.readyState !== 1) {
+    if (Date.now() - start > timeout) {
+      console.error('Connection timeout');
+      return false;
+    }
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+  return true;
+};
+
 // Helper function to process SVG from buffer
 async function processSVGFromBuffer(buffer: Buffer, originalName: string) {
+  // Wait for connection to be ready
+  const isConnected = await waitForConnection();
+  if (!isConnected) {
+    throw new Error('Database connection not ready');
+  }
+
   const fileContent = buffer.toString('utf-8');
   
   // Parse the SVG
@@ -122,7 +141,7 @@ app.get('/api/designs/:id', async (req, res) => {
   }
 });
 
-// Connect to MongoDB - FIXED VERSION with optimized settings
+// Connect to MongoDB - FINAL FIXED VERSION with optimized settings
 const MONGODB_URI = process.env.DATABASE_URL || process.env.MONGODB_URI || 'mongodb://localhost:27017/svg-processor';
 
 mongoose.connect(MONGODB_URI, {
@@ -136,7 +155,7 @@ mongoose.connect(MONGODB_URI, {
   retryWrites: true,
   retryReads: true,
   bufferCommands: true,
-  bufferMaxEntries: 0
+  heartbeatFrequencyMS: 5000
 })
   .then(() => {
     console.log('✅ MongoDB connected');
