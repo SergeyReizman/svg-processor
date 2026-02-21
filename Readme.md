@@ -2,9 +2,10 @@
 
 ## 🌐 Links
 
-🌐 **Live Demo:** https://svg-processor-mm7q.vercel.app/  
-⚙️ **Backend API:** https://svg-processor-peach.vercel.app/api/test  
-💻 **GitHub Repository:** https://github.com/SergeyReizman/svg-processor  
+🌐 **Live Demo:**                  https://svg-processor-mm7q.vercel.app/ 
+⚙️ **Backend API:**                https://svg-processor-peach.vercel.app/
+⚙️ **Backend API Health Check:**   https://svg-processor-peach.vercel.app/api/test  
+💻 **GitHub Repository:**          https://github.com/SergeyReizman/svg-processor  
 
 
 📋 Project Specification Document: https://svg-processor-docs.netlify.app/
@@ -197,10 +198,6 @@ Docker Production Setup (Optional)
 🤝 Contributing
 
 Coding Standards
-
-📜 License
-
-👨‍💻 Author
 
 ⭐ Reviewer Notes (For Hiring Teams)
 
