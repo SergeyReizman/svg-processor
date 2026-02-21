@@ -6,6 +6,9 @@
 ⚙️ **Backend API:** https://svg-processor-peach.vercel.app/api/test  
 💻 **GitHub Repository:** https://github.com/SergeyReizman/svg-processor  
 
+
+📋 Project Specification Document: https://svg-processor-docs.netlify.app/
+
 ---
 
 ## 🛠️ Tech Stack Badges
