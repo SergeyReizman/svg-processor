@@ -1,37 +1,91 @@
+/**
+ * Main App Component Styles
+ * Default styling for the React application root component
+ * Includes layout, animations, and responsive design considerations
+ */
+
+/* 
+ * Root App Container
+ * Centers all content horizontally within the application
+ * text-align: center affects inline elements and text content
+ */
 .App {
   text-align: center;
 }
 
+/**
+ * App Logo Styling
+ * The rotating logo used as a visual element in the application
+ * height: 40vmin - scales relative to viewport (40% of smaller dimension)
+ * pointer-events: none - prevents interaction, allowing underlying elements to receive clicks
+ */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
+/**
+ * Motion Preference Media Query
+ * Respects user's system preferences for reduced motion
+ * Only applies animation if user hasn't requested reduced motion
+ * This is an accessibility best practice
+ */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
+    /**
+     * Infinite rotation animation
+     * 20s duration - slow, smooth rotation
+     * linear timing - constant speed throughout
+     * infinite - continues rotating indefinitely
+     */
     animation: App-logo-spin infinite 20s linear;
   }
 }
 
+/**
+ * App Header Section
+ * Main hero section of the application
+ * Uses dark theme with centered flexbox layout
+ */
 .App-header {
+  /* Dark background for contrast with light text */
   background-color: #282c34;
+  /* Full viewport height for immersive hero section */
   min-height: 100vh;
+  
+  /* Flexbox layout for perfect centering */
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;  /* Stack children vertically */
+  align-items: center;     /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  
+  /* Responsive font sizing using viewport units */
   font-size: calc(10px + 2vmin);
+  /* High contrast white text on dark background */
   color: white;
 }
 
+/**
+ * Link Styling
+ * Applies to all anchor tags within the App component
+ * Uses React's brand color for interactive elements
+ */
 .App-link {
-  color: #61dafb;
+  color: #61dafb;  /* React's signature blue color */
 }
 
+/**
+ * Keyframe Animation Definition
+ * Defines the rotation animation used by the logo
+ * from/to syntax defines start and end states
+ * Alternative to 0% and 100% keyframes
+ */
 @keyframes App-logo-spin {
+  /* Starting state - no rotation */
   from {
     transform: rotate(0deg);
   }
+  /* Ending state - full rotation */
   to {
     transform: rotate(360deg);
   }
