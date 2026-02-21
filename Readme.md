@@ -296,6 +296,19 @@ Data stored in MongoDB
 
 Frontend renders interactive preview
 
+## Performance Monitoring with web-vitals
+
+This project includes Google's [web-vitals](https://github.com/GoogleChrome/web-vitals) library (v5.1.0) for measuring real-user performance metrics.
+
+### Metrics Tracked
+- **Core Web Vitals**: CLS, INP, LCP
+- **Additional Metrics**: FCP, TTFB
+
+### Setup
+The library was installed and configured with:
+```bash
+npm install --save-dev web-vitals@5.1.0
+
 ---
 
 🧠 Technical Decisions
