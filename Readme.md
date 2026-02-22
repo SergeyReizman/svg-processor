@@ -47,10 +47,6 @@
 
 ---
 
-![Quick Setup](https://img.shields.io/badge/⚡-setup%20in%205%20minutes-blue?style=for-the-badge)  
-
----
-
 ![Quick Setup](https://img.shields.io/badge/⚡-setup%20in%205%20minutes-blue?style=for-the-badge)
 
 ## 🛠️ Tech Stack Badges
@@ -126,7 +122,7 @@ A full-stack application that allows users to upload SVG files containing rectan
 
 This project demonstrates end-to-end engineering across backend, frontend, database, and visualization layers.
 
-## 🚀 Live Project
+## <a name="live-project"></a>🚀 Live Project
 
 | Resource | Link |
 |----------|------|
@@ -143,18 +139,14 @@ This project demonstrates end-to-end engineering across backend, frontend, datab
 ⚙️ Automatic Processing — Rectangle extraction and validation
 
 🚨 Issue Detection
-
-Empty SVG files
-
-Out-of-bounds rectangles
+- Empty SVG files
+- Out-of-bounds rectangles
 
 🗄️ MongoDB Storage — Persistent design data
 
 🎨 Interactive Canvas Preview
-
-🖱️ Hover tooltips with rectangle metadata
-
-📊 Coverage ratio calculation
+- 🖱️ Hover tooltips with rectangle metadata
+- 📊 Coverage ratio calculation
 
 📱 Responsive UI (desktop & mobile)
 
@@ -192,7 +184,7 @@ Data stored in MongoDB
 
 Frontend renders interactive preview
 
-## Performance Monitoring with web-vitals
+## <a name="web-vitals"></a>📊 Performance Monitoring with web-vitals
 
 This project includes Google's [web-vitals](https://github.com/GoogleChrome/web-vitals) library (v5.1.0) for measuring real-user performance metrics.
 
@@ -207,7 +199,7 @@ npm install --save-dev web-vitals@5.1.0
 
 ---
 
-## <a name="technical-decisions"></a>🧠 Technical Decisions
+<a name="technical-decisions"></a>🧠 Technical Decisions
 
 Why Canvas Instead of SVG Rendering?
 
@@ -234,7 +226,7 @@ Minimal infrastructure maintenance
 Fast global delivery via CDN
 
 
-🔐 Security Considerations
+<a name="security"></a>🔐 Security Considerations
 
 SVG and file uploads introduce real risks.
 
@@ -253,7 +245,7 @@ XML parser configured to prevent XXE attacks
 Input validation before database storage
 
 
-📊 Monitoring & CI
+<a name="monitoring"></a>📊 Monitoring & CI
 
 GitHub Actions: Backend & Frontend workflows
 
@@ -266,7 +258,7 @@ Security: Snyk, FOSSA
 SonarCloud alert monitoring
 
 
-🧪 Development Tips
+<a name="development-tips"></a>🧪 Development Tips
 
 Backend: npm run dev (auto-reload)
 
@@ -277,26 +269,24 @@ Build for production: npm run build (backend/frontend)
 Reset MongoDB: docker-compose down -v
 
 
-## <a name="demo"></a>🎬 Demo
+<a name="demo"></a>🎬 Demo
 
 The application is deployed and live! You can access it here:
 
-### 🌐 Production URLs
+🌐 Production URLs
+Component	                                 URL
+Frontend                Application	https://svg-processor-mm7q.vercel.app
+Backend                 API	https://svg-processor-peach.vercel.app
+API Health Check	      https://svg-processor-peach.vercel.app/api/test
 
-| Component | URL |
-|-----------|-----|
-| **Frontend Application** | [https://svg-processor-mm7q.vercel.app](https://svg-processor-mm7q.vercel.app) |
-| **Backend API** | [https://svg-processor-peach.vercel.app](https://svg-processor-peach.vercel.app) |
-| **API Health Check** | [https://svg-processor-peach.vercel.app/api/test](https://svg-processor-peach.vercel.app/api/test) |
-
-## ☁️ Deployment & Infrastructure
+<a name="deployment"></a>☁️ Deployment & Infrastructure
 
 - **Frontend Hosting**: :contentReference[oaicite:0]{index=0} — Serverless React application deployment with global CDN
 - **Backend Hosting**: Vercel — Serverless Node.js / Express API with automatic scaling
 - **Database**: :contentReference[oaicite:1]{index=1} — Managed MongoDB-compatible database hosting
 - **Source Code**: :contentReference[oaicite:2]{index=2} — Version control, CI/CD, and collaboration
 
-### 🎯 Deployment Architecture
+🎯 Deployment Architecture
 
 ```mermaid
 graph LR
@@ -323,7 +313,7 @@ Environment variables configured in Vercel dashboard
 
 Automatic deployments triggered by pushes to main branch
 
-## <a name="tech-stack"></a>🧰 Tech Stack
+<a name="tech-stack"></a>🧰 Tech Stack
 
 ### Backend
 
@@ -347,7 +337,7 @@ Automatic deployments triggered by pushes to main branch
 
 ---
 
-🔐 Environment Variables
+<a name="environment-variables"></a>🔐 Environment Variables
 
 Create .env in /backend:
 
@@ -375,7 +365,7 @@ Environment variables configured in platform dashboard
 
 Automatic CI/CD on push to main branch
 
-📁 Project Structure
+<a name="project-structure"></a>📁 Project Structure
 
 svg-processor/
 │
@@ -407,7 +397,7 @@ svg-processor/
     └── tsconfig.json
 
 
-✅ Prerequisites
+<a name="prerequisites"></a>✅ Prerequisites
 
 Node.js (v18 or higher)
 
@@ -417,7 +407,7 @@ npm or yarn (package managers)
 
 Git (version control)
 
-## <a name="installation"></a>⚙️ Installation
+<a name="installation"></a>⚙️ Installation
 
 1️⃣ Clone Repository
 
@@ -476,7 +466,7 @@ MONGODB_URI=mongodb://localhost:27017/svg_designs
 UPLOAD_DIR=uploads
 MAX_FILE_SIZE=5242880  # 5MB in bytes
 
-## <a name="api"></a>📡 API Endpoints
+<a name="api"></a>📡 API Endpoints
 
 | Method | Endpoint            | Description      | Response
 | ------ | ------------------- | ---------------- |----------------------------------|
@@ -485,7 +475,7 @@ MAX_FILE_SIZE=5242880  # 5MB in bytes
 | GET    | /api/designs        | Get all designs  | Array of designs                 |
 | GET    | /api/designs/:id    | Get design by ID | Single design object             |
 
-## <a name="usage"></a>🧑‍💻 Usage Guide
+<a name="usage"></a>🧑‍💻 Usage Guide
 
 Upload an SVG File
 
@@ -529,7 +519,7 @@ Visual Indicators:
 
 ⬛ Black border for normal rectangles
 
-## <a name="examples"></a>📄 Example SVG
+<a name="examples"></a>📄 Example SVG
 
 Valid SVG (All rectangles within bounds)
 
@@ -560,7 +550,7 @@ Empty SVG (No rectangles)
 <svg width="600" height="300" xmlns="http://www.w3.org/2000/svg">
 </svg>
 
-🔍 Features in Detail
+a name="features-detail"></a>🔍 Features in Detail
 
 Backend Processing Pipeline
 
@@ -631,7 +621,7 @@ Out of Bounds     y + height > svgHeight	    Red border in canvas, issue badge
 Both Issues	      Both conditions met	        Combined warnings
 
 
-🗄️ Database Schema
+<a name="database"></a>🗄️ Database Schema
 
 interface Design {
   _id: ObjectId;
@@ -665,7 +655,7 @@ interface Design {
   createdAt: Date;
 }
 
-## <a name="troubleshooting"></a>🛠️ Troubleshooting
+<a name="troubleshooting"></a>🛠️ Troubleshooting
 
 MongoDB Connection Issues
 
@@ -719,7 +709,7 @@ Cannot find module	             Run npm install in the respective directory
 Multer error: File too large	   MAX_FILE_SIZE in .env
 Invalid SVG format	             Check SVG syntax for errors
 
-🧪 Development
+<a name="development"></a>🧪 Development
 
 Running in Development Mode
 
@@ -759,7 +749,7 @@ docker-compose down
 docker-compose down -v
 
 
-📦 Production Build
+<a name="production-build"></a>📦 Production Build
 
 Backend
 
@@ -805,7 +795,7 @@ EXPOSE 5000
 CMD ["node", "dist/server.js"]
 
 
-🤝 Contributing
+<a name="contributing"></a>🤝 Contributing
 
 1.Fork the repository
 
@@ -834,10 +824,10 @@ Update README for significant changes
 
 Write meaningful commit messages
 
-📜 License
+<a name="license"></a>📜 License
 This project is licensed under the ISC License.
 
-👨‍💻 Author
+<a name="author"></a>👨‍💻 Author
 Sergey Reizman
 
 📧 Email: sergeytlv1971@gmail.com
@@ -846,7 +836,7 @@ Sergey Reizman
 
 🐙 GitHub: https://github.com/SergeyReizman
 
-⭐ Reviewer Notes (For Hiring Teams)
+<a name="reviewers"></a>⭐ Reviewer Notes (For Hiring Teams)
 This project demonstrates the following engineering competencies:
 
 Technical Skills
@@ -886,7 +876,7 @@ Problem Solving
 
 ✅ Coverage ratio calculation
 
-🔮 Possible Future Improvements
+<a name="future-improvements"></a>🔮 Possible Future Improvements
 Short-term
 Add authentication and user accounts
 
@@ -911,7 +901,7 @@ Unit and integration tests
 
 Dark mode theme
 
-🙏 Acknowledgments
+<a name="acknowledgments"></a>🙏 Acknowledgments
 Node.js community for excellent tools and libraries
 
 React team for the amazing UI library
@@ -922,7 +912,7 @@ Open source contributors whose libraries made this possible
 
 You for taking the time to review this project!
 
-📊 Performance Metrics
+<a name="performance"></a>📊 Performance Metrics
 Operation	Time (typical)
 File upload (100KB)	< 100ms
 SVG parsing (10 rectangles)	< 50ms
