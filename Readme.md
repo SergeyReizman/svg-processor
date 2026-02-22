@@ -1038,3 +1038,430 @@ SVG parsing (10 rectangles)	< 50ms
 Database storage	< 50ms
 Canvas rendering	< 30ms
 Total end-to-end	< 300ms
+
+🚀 Как я построил SVG Design Processor (Полное объяснение)
+1. Идея проекта
+Что делает приложение?
+Пользователь загружает SVG-файл с прямоугольниками, сервер их обрабатывает, сохраняет в базу, а на фронтенде можно посмотреть их на канвасе с подсветкой проблем.
+
+Зачем? Показать, что умею:
+
+Строить полный стек (frontend + backend + database)
+
+Работать с файлами и их обработкой
+
+Проектировать базу данных
+
+Деплоить приложения в облако
+
+Писать чистый код с TypeScript
+
+4. Как работает бэкенд (Node.js + Express)
+4.1 Технологии
+Node.js — среда выполнения
+
+Express — фреймворк для API
+
+TypeScript — типизация (чтобы меньше ошибок)
+
+Mongoose — работа с MongoDB
+
+Multer — приём файлов от пользователя
+
+xml2js — парсинг SVG-файлов
+
+4.2 Что происходит при загрузке файла?
+
+1. Пользователь выбирает SVG файл
+2. Файл отправляется на /api/designs/upload
+3. Multer сохраняет файл временно в /uploads
+4. Создаётся запись в БД со статусом "pending"
+5. Парсим SVG с помощью xml2js
+6. Извлекаем все <rect> теги (прямоугольники)
+7. Для каждого прямоугольника проверяем:
+   - Не выходит ли за границы SVG?
+   - Есть ли вообще прямоугольники?
+8. Считаем coverage ratio (общая площадь прямоугольников / площадь SVG)
+9. Обновляем запись в БД: статус "processed", добавляем данные
+10. Возвращаем результат на фронтенд
+
+4.3 Ключевой код обработки
+
+// backend/src/services/svgProcessor.ts
+export async function processSVG(filePath: string, designId: string) {
+  // Читаем файл
+  const svgContent = fs.readFileSync(filePath, 'utf-8');
+  
+  // Парсим XML
+  const result = await xml2js.parseStringPromise(svgContent);
+  
+  // Получаем размеры SVG
+  const svgWidth = parseInt(result.svg.$.width);
+  const svgHeight = parseInt(result.svg.$.height);
+  
+  // Извлекаем прямоугольники
+  const rectangles = [];
+  if (result.svg.rect) {
+    for (const rect of result.svg.rect) {
+      const x = parseFloat(rect.$.x);
+      const y = parseFloat(rect.$.y);
+      const width = parseFloat(rect.$.width);
+      const height = parseFloat(rect.$.height);
+      
+      // Проверяем границы
+      const isOutOfBounds = (x + width > svgWidth) || (y + height > svgHeight);
+      
+      rectangles.push({
+        x, y, width, height,
+        fill: rect.$.fill || '#000000',
+        issue: isOutOfBounds ? 'OUT_OF_BOUNDS' : undefined
+      });
+    }
+  }
+  
+  // Считаем метрики
+  const itemsCount = rectangles.length;
+  const totalArea = rectangles.reduce((sum, r) => sum + (r.width * r.height), 0);
+  const svgArea = svgWidth * svgHeight;
+  const coverageRatio = svgArea > 0 ? totalArea / svgArea : 0;
+  
+  // Определяем проблемы
+  const issues = [];
+  if (itemsCount === 0) issues.push('EMPTY');
+  if (rectangles.some(r => r.issue)) issues.push('OUT_OF_BOUNDS');
+  
+  // Сохраняем в БД
+  await Design.findByIdAndUpdate(designId, {
+    status: 'processed',
+    svgWidth, svgHeight,
+    items: rectangles,
+    itemsCount,
+    coverageRatio,
+    issues
+  });
+}
+
+4.4 Схема базы данных (Mongoose)
+
+// backend/src/models/Design.ts
+const designSchema = new mongoose.Schema({
+  filename: String,
+  originalName: String,
+  status: { type: String, enum: ['pending', 'processed', 'error'] },
+  svgWidth: Number,
+  svgHeight: Number,
+  items: [{
+    x: Number, y: Number,
+    width: Number, height: Number,
+    fill: String,
+    issue: String
+  }],
+  itemsCount: Number,
+  coverageRatio: Number,
+  issues: [String],
+  rawSvgPath: String,
+  createdAt: { type: Date, default: Date.now }
+});
+
+Почему MongoDB? Данные неструктурированные (разные SVG), легко менять схему, быстро работает.
+
+5. Как работает фронтенд (React + TypeScript)
+
+5.1 Технологии
+React — компонентный подход
+
+TypeScript — типизация пропсов и состояний
+
+React Router — навигация
+
+React Dropzone — drag & drop загрузка
+
+Canvas API — отрисовка прямоугольников
+
+Axios — запросы к API
+
+5.2 Структура компонентов
+
+App.tsx (главный компонент)
+├── Upload.tsx     // Загрузка файлов
+├── Designs.tsx    // Список всех дизайнов
+└── DesignView.tsx // Детальный просмотр с Canvas
+
+5.3 Как работает Canvas
+
+// frontend/src/components/DesignView.tsx
+const drawCanvas = () => {
+  const canvas = canvasRef.current;
+  const ctx = canvas.getContext('2d');
+  
+  // Очищаем canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // Рассчитываем масштаб (чтобы SVG влез в canvas)
+  const scale = Math.min(
+    (canvas.width - 40) / design.svgWidth,
+    (canvas.height - 40) / design.svgHeight
+  );
+  
+  // Рисуем каждый прямоугольник
+  design.items.forEach((rect, index) => {
+    const x = rect.x * scale + 20;
+    const y = rect.y * scale + 20;
+    const width = rect.width * scale;
+    const height = rect.height * scale;
+    
+    // Выбираем цвет
+    if (hoveredIndex === index) {
+      ctx.strokeStyle = 'blue';  // При наведении
+    } else if (rect.issue) {
+      ctx.strokeStyle = 'red';    // Проблемный
+    } else {
+      ctx.strokeStyle = 'black';  // Нормальный
+    }
+    
+    ctx.strokeRect(x, y, width, height);
+  });
+};
+
+Важно: Координаты из SVG нужно преобразовывать в координаты canvas с учётом масштаба и отступов.
+
+
+5.4 Отслеживание наведения мыши
+const handleMouseMove = (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+  
+  // Проверяем, над каким прямоугольником мышь
+  let hovered = -1;
+  design.items.forEach((item, index) => {
+    // Преобразуем координаты так же, как при рисовании
+    const itemX = item.x * scale + 20;
+    const itemY = item.y * scale + 20;
+    const itemW = item.width * scale;
+    const itemH = item.height * scale;
+    
+    if (mouseX >= itemX && mouseX <= itemX + itemW &&
+        mouseY >= itemY && mouseY <= itemY + itemH) {
+      hovered = index;
+    }
+  });
+  
+  setHoveredIndex(hovered);
+};
+
+6. Как я соединил фронтенд с бэкендом
+
+6.1 API сервис на фронтенде
+
+// frontend/src/services/designService.ts
+import axios from 'axios';
+
+// Умный выбор URL: если на сервере - бьём на Vercel, если локально - на localhost
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://svg-processor-peach.vercel.app'  // Продакшн
+  : 'http://localhost:5000';                   // Разработка
+
+export const designService = {
+  // Загрузить SVG
+  upload: async (file) => {
+    const formData = new FormData();
+    formData.append('svg', file);
+    return axios.post(`${API_URL}/api/designs/upload`, formData);
+  },
+  
+  // Получить все дизайны
+  getAll: async () => {
+    return axios.get(`${API_URL}/api/designs`);
+  },
+  
+  // Получить один дизайн
+  getById: async (id) => {
+    return axios.get(`${API_URL}/api/designs/${id}`);
+  }
+};
+
+6.2 API эндпоинты на бэкенде
+
+// backend/src/routes/designs.ts
+router.post('/upload', upload.single('svg'), uploadDesign);
+router.get('/', getAllDesigns);
+router.get('/:id', getDesignById);
+router.get('/test', (req, res) => {
+  res.json({ message: 'Server is running' });
+});
+
+7. Как я всё задеплоил
+
+7.1 Выбор платформ
+
+Фронтенд: Vercel (идеально для React, бесплатно, CDN по всему миру)
+
+Бэкенд: Vercel (поддерживает Node.js как serverless функции)
+
+База данных: Railway (MongoDB в облаке, простой интерфейс)
+
+7.2 Процесс деплоя бэкенда
+
+Сначала я адаптировал бэкенд для Vercel:
+
+// backend/src/server.ts - ЭТО ВАЖНО!
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+
+const app = express();
+
+// Разрешаем запросы только с моего фронтенда
+app.use(cors({
+  origin: [
+    'https://svg-processor-mm7q.vercel.app', // Продакшн
+    'http://localhost:3000'                   // Локальная разработка
+  ]
+}));
+
+// ... все роуты ...
+
+// Подключаемся к MongoDB на Railway
+mongoose.connect(process.env.DATABASE_URL)
+  .then(() => console.log('MongoDB connected'));
+
+// Экспортируем для Vercel (не app.listen!)
+export default app;
+
+Создал vercel.json в папке backend:
+
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/server.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/src/server.ts"
+    }
+  ]
+}
+
+Настроил переменные окружения в Vercel:
+
+DATABASE_URL — строка подключения к MongoDB на Railway
+
+
+7.3 Процесс деплоя фронтенда
+Создал vercel.json в папке frontend:
+
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+
+При деплое Vercel автоматически:
+
+Собирает React приложение (npm run build)
+
+Раздаёт статические файлы
+
+Все маршруты направляет на index.html (для React Router)
+
+7.4 Настройка CORS (чтобы всё подружилось)
+
+// backend/src/server.ts
+app.use(cors({
+  origin: ['https://svg-processor-mm7q.vercel.app'],
+  credentials: true
+}));
+
+Без CORS браузер заблокирует запросы с одного домена на другой.
+
+7.5 Итоговая архитектура в продакшене
+
+Пользователь → https://svg-processor-mm7q.vercel.app (Фронтенд на Vercel)
+                            ↓
+              https://svg-processor-peach.vercel.app (Бэкенд на Vercel)
+                            ↓
+              MongoDB на Railway (shinkansen.proxy.rlwy.net:38854)
+
+
+              
+8. CI/CD и качество кода
+
+8.1 GitHub Actions
+У меня настроены автоматические проверки при каждом пуше:
+
+backend.yml — сборка и тесты бэкенда
+
+frontend.yml — сборка и тесты фронтенда
+
+codeql.yml — проверка безопасности
+
+8.2 Мониторинг качества
+Codecov — следит за покрытием тестами
+
+Snyk — ищет уязвимости в зависимостях
+
+SonarCloud — анализ кода (дублирование, сложность)
+
+9. Безопасность (что я предусмотрел)
+Проверка типа файла — только SVG
+
+Лимит размера — максимум 5MB
+
+Защита от XXE атак — настройка xml2js
+
+Валидация данных перед записью в БД
+
+Санация имён файлов — без спецсимволов
+
+10. Что я могу рассказать про технические решения
+Почему Canvas, а не SVG?
+Производительность — тысячи прямоугольников не тормозят
+
+Контроль — сам решаю, как и что рисовать
+
+Hover-эффекты — легко отслеживать мышь
+
+Почему MongoDB?
+Гибкость — разные SVG могут иметь разные атрибуты
+
+Скорость — не нужно JOIN-таблиц
+
+Масштабирование — легко расти
+
+Почему Vercel?
+Бесплатно — отличный старт
+
+Простота — git push и готово
+
+Serverless — плачу только за использование
+
+CDN — быстро по всему миру
+
+11. Проблемы, с которыми я столкнулся (и как решил)
+Проблема 1: Локально работает, на Vercel нет
+Решение: Понял, что на Vercel нельзя писать в файловую систему (read-only). Переделал на обработку в памяти.
+
+Проблема 2: CORS-ошибки
+Решение: Настроил правильно cors() с указанием конкретных доменов.
+
+Проблема 3: MongoDB не подключается
+Решение: Понял, что на Railway нужно включить Public Network и использовать правильный connection string.
+
+Проблема 4: Координаты на Canvas съезжают
+Решение: Добавил расчёт масштаба с сохранением пропорций и отступы 20px.
+
+12. Что я могу улучшить (если спросят про будущее)
+Аутентификация — добавить пользователей
+
+Тесты — unit и интеграционные
+
+WebSockets — для реального времени
+
+Экспорт — сохранять обработанный SVG
+
+Кэширование — Redis для частых запросов
