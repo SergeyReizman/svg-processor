@@ -1,5 +1,7 @@
 # 🎨 SVG Design Processor
 
+This project demonstrates practical full-stack skills: scalable architecture, cloud deployment, database integration, and algorithmic problem-solving as well as an ability to build, deploy, and maintain a production-ready application while thinking about user experience, security, and performance.
+
 ## 🌐 Links
 
 🌐 **Live Demo:**                  https://svg-processor-mm7q.vercel.app/ 
