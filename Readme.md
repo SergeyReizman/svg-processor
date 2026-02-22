@@ -1040,7 +1040,9 @@ Canvas rendering	< 30ms
 Total end-to-end	< 300ms
 
 🚀 Как я построил SVG Design Processor (Полное объяснение)
+
 1. Идея проекта
+
 Что делает приложение?
 
 Пользователь загружает SVG-файл с прямоугольниками, сервер их обрабатывает, сохраняет в базу, а на фронтенде можно посмотреть их на канвасе с подсветкой проблем.
@@ -1327,32 +1329,6 @@ app.use(cors({
 mongoose.connect(process.env.DATABASE_URL)
   .then(() => console.log('MongoDB connected'));
 
-// Экспортируем для Vercel (не app.listen!)
-export default app;
-
-Создал vercel.json в папке backend:
-
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "src/server.ts",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/src/server.ts"
-    }
-  ]
-}
-
-Настроил переменные окружения в Vercel:
-
-DATABASE_URL — строка подключения к MongoDB на Railway
-
-
 7.3 Процесс деплоя фронтенда
 Создал vercel.json в папке frontend:
 
@@ -1464,3 +1440,88 @@ WebSockets — для реального времени
 Экспорт — сохранять обработанный SVG
 
 Кэширование — Redis для частых запросов
+
+
+
+Я добавил web-vitals в проект для мониторинга реальной производительности. Это показывает, что я думаю не только о функциональности, но и о пользовательском опыте.
+
+Корневой package.json:
+
+{
+  "devDependencies": {
+    "web-vitals": "^5.1.0"
+  }
+}
+
+Что я измеряю:
+
+Как быстро загружается страница (LCP)
+
+Насколько стабильно отображается контент (CLS)
+
+Как быстро реагирует интерфейс (INP)
+
+Зачем это нужно:
+
+Поиск узких мест — если какой-то показатель плохой, я знаю, что оптимизировать
+
+Реальные данные — метрики от настоящих пользователей, а не только из тестов
+
+SEO — Google учитывает Core Web Vitals в ранжировании
+
+UX — быстрые сайты лучше конвертируют пользователей
+
+🛠️ Как улучшить
+// 1. Ленивая загрузка Canvas
+const CanvasComponent = lazy(() => import('./CanvasComponent'));
+
+// 2. Оптимизация рендеринга
+useMemo(() => drawCanvas(), [design.items]); // ← уже наверное есть
+
+// 3. Web Worker для сложных вычислений
+const worker = new Worker('./processRectangles.worker.js');
+
+Показатель	 Что измеряет в проекте
+
+LCP	         Скорость загрузки	React загружается быстро, Canvas может тормозить
+CLS	         Стабильность	Стабильно, если нет скачков при рендере
+INP	         Отзывчивость	Зависит от количества прямоугольников
+FCP	         Первый контент	Быстро, React сразу показывает интерфейс
+TTFB	       Сервер	Бэкенд на Vercel отвечает быстро
+
+В React-приложениях, собранных с Create React App или Vite, нет прямого доступа к index.html в коде. 
+Всё работает через index.tsx
+
+Как на самом деле загружается приложение:
+
+1. public/index.html (создаётся при сборке)
+2. В нём есть <div id="root"></div>
+3. index.tsx берёт этот div и вставляет туда React-компоненты
+4. Всё остальное делает React
+
+// frontend/src/index.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+
+// Берём div с id="root" из HTML
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+
+// Вставляем туда наше приложение
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+Что здесь важно:
+
+React.StrictMode — помогает отлавливать потенциальные проблемы (только в разработке)
+
+createRoot — новый способ рендеринга в React 18
+
+
+
