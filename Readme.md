@@ -12,44 +12,42 @@
 
 ---
 
-## 📑 Quick Navigation
+🎨 SVG Design Processor
+🌐 Links
+🌐 Live Demo: https://svg-processor-mm7q.vercel.app/
+⚙️ Backend API: https://svg-processor-peach.vercel.app/
+⚙️ Backend API Health Check: https://svg-processor-peach.vercel.app/api/test
+💻 GitHub Repository: https://github.com/SergeyReizman/svg-processor
+📋 Project Specification: https://svg-processor-docs.netlify.app/
 
-<p align="center">
-  <a href="#-installation"><b>⚡ Quick Start</b></a> •
-  <a href="#-live-project"><b>🌐 Live Demo</b></a> •
-  <a href="#-api-endpoints"><b>📡 API</b></a>
-</p>
+📑 Quick Navigation
+<p align="center"> <a href="#-quick-start"><b>⚡ Quick Start</b></a> • <a href="#-live-project"><b>🌐 Live Demo</b></a> • <a href="#-api-endpoints"><b>📡 API</b></a> </p>
+🚀 Overview
+• 🎬 Demo •
+• 🚀 Live Project •
+• ✨ Features •
+• 🏗️ Architecture •
+• 🧠 Technical Decisions •
 
-### 🚀 Overview
-**[🎬 Demo](#-demo)** •  
-**[🚀 Live Project](#-live-project)** •  
-**[✨ Features](#-features)** •  
-**[🏗️ Architecture](#️-architecture)** •  
-**[🧠 Technical Decisions](#-technical-decisions)**  
+⚙️ Development
+• 🧰 Tech Stack •
+• ⚙️ Installation •
+• 🧑‍💻 Usage Guide •
+• 📡 API Endpoints •
+• 📄 Example SVG •
 
-### ⚙️ Development
-**[🧰 Tech Stack](#-tech-stack)** •  
-**[⚙️ Installation](#️-installation)** •  
-**[🧑‍💻 Usage Guide](#-usage-guide)** •  
-**[📡 API Endpoints](#-api-endpoints)** •  
-**[📄 Example SVG](#-example-svg)**  
+🏗️ Infrastructure
+• ☁️ Deployment •
+• 🔐 Security •
+• 📊 Monitoring & CI •
+• 🗄️ Database Schema •
 
-### 🏗️ Infrastructure
-**[☁️ Deployment](#️-deployment--infrastructure)** •  
-**[🔐 Security](#-security-considerations)** •  
-**[📊 Monitoring & CI](#-monitoring--ci)** •  
-**[🗄️ Database Schema](#️-database-schema)**  
+🛠️ Maintenance
+• 🛠️ Troubleshooting •
+• 🤝 Contributing •
+• ⭐ Reviewer Notes •
 
-### 🛠️ Maintenance
-**[🛠️ Troubleshooting](#️-troubleshooting)** •  
-**[🤝 Contributing](#-contributing)** •  
-**[⭐ Reviewer Notes](#-reviewer-notes-for-hiring-teams)**  
-
----
-
-![Quick Setup](https://img.shields.io/badge/⚡-setup%20in%205%20minutes-blue?style=for-the-badge)
-
----
+https://img.shields.io/badge/%E2%9A%A1-setup%2520in%25205%2520minutes-blue?style=for-the-badge
 
 ![Quick Setup](https://img.shields.io/badge/⚡-setup%20in%205%20minutes-blue?style=for-the-badge)
 
