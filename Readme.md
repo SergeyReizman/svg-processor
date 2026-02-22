@@ -12,6 +12,12 @@
 
 ---
 
+## 📑 Quick Navigation
+
+**[🎬 Demo](#-demo)** • **[🚀 Live Project](#-live-project)** • **[✨ Features](#-features)** • **[🏗️ Architecture](#️-architecture)** • **[🧠 Technical Decisions](#-technical-decisions)** • **[🔐 Security](#-security-considerations)** • **[📊 Monitoring](#-monitoring--ci)** • **[☁️ Deployment](#️-deployment--infrastructure)** • **[🧰 Tech Stack](#-tech-stack)** • **[⚙️ Installation](#️-installation)** • **[📡 API](#-api-endpoints)** • **[🧑‍💻 Usage](#-usage-guide)** • **[📄 Examples](#-example-svg)** • **[🗄️ Database](#️-database-schema)** • **[🛠️ Troubleshooting](#️-troubleshooting)** • **[🤝 Contributing](#-contributing)** • **[⭐ Reviewers](#-reviewer-notes-for-hiring-teams)**
+
+![Quick Setup](https://img.shields.io/badge/⚡-setup%20in%205%20minutes-blue?style=for-the-badge)
+
 ## 🛠️ Tech Stack Badges
 
 ![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?style=for-the-badge&logo=node.js)
@@ -84,151 +90,6 @@
 A full-stack application that allows users to upload SVG files containing rectangles, process them on the backend, store structured data in MongoDB, and visualize the results interactively using an HTML Canvas interface.
 
 This project demonstrates end-to-end engineering across backend, frontend, database, and visualization layers.
-
-📑 Table of Contents
-
-🎬 Demo
-
-🚀 Live Project
-
-✨ Features
-
-🏗️ Architecture
-
-Processing Flow
-
-🧠 Technical Decisions
-
-🔐 Security Considerations
-
-📊 Monitoring & CI
-
-🧪 Development Tips
-
-🚀 Live Demo
-
-☁️ Deployment & Infrastructure
-
-📸 Screenshot
-
-🎯 Deployment Architecture
-
-🔧 Environment Variables (Production)
-
-🚦 Deployment Status
-
-📝 Deployment Notes
-
-🧰 Tech Stack
-
-Backend
-
-Frontend
-
-🔐 Environment Variables
-
-☁️ Deployment
-
-📁 Project Structure
-
-✅ Prerequisites
-
-⚙️ Installation
-
-1️⃣ Clone Repository
-
-2️⃣ Backend Setup
-
-3️⃣ Frontend Setup
-
-📡 API Endpoints
-
-🧑‍💻 Usage Guide
-
-Upload an SVG File
-
-View All Designs
-
-Explore Design Details
-
-📄 Example SVG
-
-Valid SVG (All rectangles within bounds)
-
-Valid SVG with Multiple Rectangles
-
-Out of Bounds (Rectangle exceeds canvas)
-
-Empty SVG (No rectangles)
-
-🔍 Features in Detail
-
-Backend Processing Pipeline
-
-Canvas Rendering Logic
-
-Validation Rules
-
-🗄️ Database Schema
-
-🛠️ Troubleshooting
-
-MongoDB Connection Issues
-
-Backend Won't Start
-
-Frontend Can't Connect to Backend
-
-Common Errors and Solutions
-
-🧪 Development
-
-Running in Development Mode
-
-Useful Commands
-
-📦 Production Build
-
-Backend
-
-Frontend
-
-Docker Production Setup (Optional)
-
-🤝 Contributing
-
-Coding Standards
-
-⭐ Reviewer Notes (For Hiring Teams)
-
-Technical Skills
-
-Software Engineering Best Practices
-
-Problem Solving
-
-🔮 Possible Future Improvements
-
-Short-term
-
-Long-term
-
-🙏 Acknowledgments
-
-📊 Performance Metrics
-
-🚀 Demo
-
-A```markdown
-## 🎬 Demo
-
-Upload → Processing → Interactive Visualization
-
-[![SVG Processor Demo](https://github.com/SergeyReizman/svg-processor/raw/main/docs/demo_thumbnail.png)](https://github.com/SergeyReizman/svg-processor/raw/main/docs/svg_processor_demo.mp4)
-
-[![SVG Processor Demo](https://github.com/SergeyReizman/svg-processor/raw/main/docs/svg_processor_demo.gif)](https://github.com/SergeyReizman/svg-processor/raw/main/docs/svg_processor_demo.mp4)
-
-![SVG Processor Demo](docs/demo.gif)
 
 ## 🚀 Live Project
 
@@ -399,10 +260,6 @@ The application is deployed and live! You can access it here:
 - **Backend Hosting**: Vercel — Serverless Node.js / Express API with automatic scaling
 - **Database**: :contentReference[oaicite:1]{index=1} — Managed MongoDB-compatible database hosting
 - **Source Code**: :contentReference[oaicite:2]{index=2} — Version control, CI/CD, and collaboration
-
-### 📸 Screenshot
-
-![SVG Processor Demo](screenshot.png) *← Add a screenshot of your working app here*
 
 ### 🎯 Deployment Architecture
 
