@@ -15,35 +15,39 @@
 ## 📑 Quick Navigation
 
 <p align="center">
-  <a href="#-installation"><b>⚡ Quick Start</b></a> •
-  <a href="#-live-project"><b>🌐 Live Demo</b></a> •
-  <a href="#-api-endpoints"><b>📡 API</b></a>
+  <a href="#installation"><b>⚡ Quick Start</b></a> •
+  <a href="#live-project"><b>🌐 Live Demo</b></a> •
+  <a href="#api"><b>📡 API</b></a>
 </p>
 
 ### 🚀 Overview
-**[🎬 Demo](#-demo)** •  
-**[🚀 Live Project](#-live-project)** •  
-**[✨ Features](#-features)** •  
-**[🏗️ Architecture](#️-architecture)** •  
-**[🧠 Technical Decisions](#-technical-decisions)**  
+**[🎬 Demo](#demo)** •  
+**[🚀 Live Project](#live-project)** •  
+**[✨ Features](#features)** •  
+**[🏗️ Architecture](#architecture)** •  
+**[🧠 Technical Decisions](#technical-decisions)**  
 
 ### ⚙️ Development
-**[🧰 Tech Stack](#-tech-stack)** •  
-**[⚙️ Installation](#️-installation)** •  
-**[🧑‍💻 Usage Guide](#-usage-guide)** •  
-**[📡 API Endpoints](#-api-endpoints)** •  
-**[📄 Example SVG](#-example-svg)**  
+**[🧰 Tech Stack](#tech-stack)** •  
+**[⚙️ Installation](#installation)** •  
+**[🧑‍💻 Usage Guide](#usage)** •  
+**[📡 API Endpoints](#api)** •  
+**[📄 Example SVG](#examples)**  
 
 ### 🏗️ Infrastructure
-**[☁️ Deployment](#️-deployment--infrastructure)** •  
-**[🔐 Security](#-security-considerations)** •  
-**[📊 Monitoring & CI](#-monitoring--ci)** •  
-**[🗄️ Database Schema](#️-database-schema)**  
+**[☁️ Deployment](#deployment)** •  
+**[🔐 Security](#security)** •  
+**[📊 Monitoring & CI](#monitoring)** •  
+**[🗄️ Database Schema](#database)**  
 
 ### 🛠️ Maintenance
-**[🛠️ Troubleshooting](#️-troubleshooting)** •  
-**[🤝 Contributing](#-contributing)** •  
-**[⭐ Reviewer Notes](#-reviewer-notes-for-hiring-teams)**  
+**[🛠️ Troubleshooting](#troubleshooting)** •  
+**[🤝 Contributing](#contributing)** •  
+**[⭐ Reviewer Notes](#reviewers)**  
+
+---
+
+![Quick Setup](https://img.shields.io/badge/⚡-setup%20in%205%20minutes-blue?style=for-the-badge)  
 
 ---
 
@@ -132,7 +136,7 @@ This project demonstrates end-to-end engineering across backend, frontend, datab
 
 ![App Screenshot](screenshot.png)
 
-✨ Features
+## <a name="features"></a>✨ Features
 
 📂 SVG Upload — Drag & drop or file selection
 
@@ -154,7 +158,7 @@ Out-of-bounds rectangles
 
 📱 Responsive UI (desktop & mobile)
 
-🏗️ Architecture
+## <a name="architecture"></a>🏗️ Architecture
 
 graph LR
     A[User Browser] --> B[Frontend: React + Canvas]
@@ -203,7 +207,7 @@ npm install --save-dev web-vitals@5.1.0
 
 ---
 
-🧠 Technical Decisions
+## <a name="technical-decisions"></a>🧠 Technical Decisions
 
 Why Canvas Instead of SVG Rendering?
 
@@ -273,7 +277,7 @@ Build for production: npm run build (backend/frontend)
 Reset MongoDB: docker-compose down -v
 
 
-## 🚀 Live Demo
+## <a name="demo"></a>🎬 Demo
 
 The application is deployed and live! You can access it here:
 
@@ -319,7 +323,7 @@ Environment variables configured in Vercel dashboard
 
 Automatic deployments triggered by pushes to main branch
 
-## 🧰 Tech Stack
+## <a name="tech-stack"></a>🧰 Tech Stack
 
 ### Backend
 
@@ -413,7 +417,7 @@ npm or yarn (package managers)
 
 Git (version control)
 
-⚙️ Installation
+## <a name="installation"></a>⚙️ Installation
 
 1️⃣ Clone Repository
 
@@ -472,7 +476,7 @@ MONGODB_URI=mongodb://localhost:27017/svg_designs
 UPLOAD_DIR=uploads
 MAX_FILE_SIZE=5242880  # 5MB in bytes
 
-📡 API Endpoints
+## <a name="api"></a>📡 API Endpoints
 
 | Method | Endpoint            | Description      | Response
 | ------ | ------------------- | ---------------- |----------------------------------|
@@ -481,7 +485,7 @@ MAX_FILE_SIZE=5242880  # 5MB in bytes
 | GET    | /api/designs        | Get all designs  | Array of designs                 |
 | GET    | /api/designs/:id    | Get design by ID | Single design object             |
 
-🧑‍💻 Usage Guide
+## <a name="usage"></a>🧑‍💻 Usage Guide
 
 Upload an SVG File
 
@@ -525,8 +529,7 @@ Visual Indicators:
 
 ⬛ Black border for normal rectangles
 
-
-📄 Example SVG
+## <a name="examples"></a>📄 Example SVG
 
 Valid SVG (All rectangles within bounds)
 
@@ -662,7 +665,7 @@ interface Design {
   createdAt: Date;
 }
 
-🛠️ Troubleshooting
+## <a name="troubleshooting"></a>🛠️ Troubleshooting
 
 MongoDB Connection Issues
 
