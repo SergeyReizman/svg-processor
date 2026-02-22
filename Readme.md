@@ -14,9 +14,38 @@
 
 ## 📑 Quick Navigation
 
-## 📑 Quick Navigation
+<p align="center">
+  <a href="#-installation"><b>⚡ Quick Start</b></a> •
+  <a href="#-live-project"><b>🌐 Live Demo</b></a> •
+  <a href="#-api-endpoints"><b>📡 API</b></a>
+</p>
 
-**[🎬 Demo](#-demo)** • **[🚀 Live Project](#-live-project)** • **[✨ Features](#-features)** • **[🏗️ Architecture](#️-architecture)** • **[🧠 Technical Decisions](#-technical-decisions)** • **[🔐 Security](#-security-considerations)** • **[📊 Monitoring](#-monitoring--ci)** • **[☁️ Deployment](#️-deployment--infrastructure)** • **[🧰 Tech Stack](#-tech-stack)** • **[⚙️ Installation](#️-installation)** • **[📡 API](#-api-endpoints)** • **[🧑‍💻 Usage](#-usage-guide)** • **[📄 Examples](#-example-svg)** • **[🗄️ Database](#️-database-schema)** • **[🛠️ Troubleshooting](#️-troubleshooting)** • **[🤝 Contributing](#-contributing)** • **[⭐ Reviewers](#-reviewer-notes-for-hiring-teams)**
+### 🚀 Overview
+**[🎬 Demo](#-demo)** •  
+**[🚀 Live Project](#-live-project)** •  
+**[✨ Features](#-features)** •  
+**[🏗️ Architecture](#️-architecture)** •  
+**[🧠 Technical Decisions](#-technical-decisions)**  
+
+### ⚙️ Development
+**[🧰 Tech Stack](#-tech-stack)** •  
+**[⚙️ Installation](#️-installation)** •  
+**[🧑‍💻 Usage Guide](#-usage-guide)** •  
+**[📡 API Endpoints](#-api-endpoints)** •  
+**[📄 Example SVG](#-example-svg)**  
+
+### 🏗️ Infrastructure
+**[☁️ Deployment](#️-deployment--infrastructure)** •  
+**[🔐 Security](#-security-considerations)** •  
+**[📊 Monitoring & CI](#-monitoring--ci)** •  
+**[🗄️ Database Schema](#️-database-schema)**  
+
+### 🛠️ Maintenance
+**[🛠️ Troubleshooting](#️-troubleshooting)** •  
+**[🤝 Contributing](#-contributing)** •  
+**[⭐ Reviewer Notes](#-reviewer-notes-for-hiring-teams)**  
+
+---
 
 ![Quick Setup](https://img.shields.io/badge/⚡-setup%20in%205%20minutes-blue?style=for-the-badge)
 
