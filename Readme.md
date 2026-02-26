@@ -120,6 +120,8 @@ This project demonstrates practical full-stack skills: scalable architecture, cl
   </a>
 </p>
 
+![App Screenshot_Desc](night_view_description.png)
+
 A full-stack application that allows users to upload SVG files containing rectangles, process them on the backend, store structured data in MongoDB, and visualize the results interactively using an HTML Canvas interface.
 
 This project demonstrates end-to-end engineering across backend, frontend, database, and visualization layers.
