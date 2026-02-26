@@ -133,6 +133,7 @@ This project demonstrates end-to-end engineering across backend, frontend, datab
 | 💻 GitHub Repository | https://github.com/SergeyReizman/svg-processor |
 
 ![App Screenshot](screenshot.png)
+![App Screenshot_Desc](description.png)
 
 ## <a name="features"></a>✨ Features
 
