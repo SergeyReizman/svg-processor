@@ -881,6 +881,47 @@ Problem Solving
 
 ✅ Coverage ratio calculation
 
+
+Error Handling & User Feedback:
+
+While you have issue detection, the user feedback for an "empty" or "invalid" SVG could be more explicit in the UI beyond a badge. A clear toast message like "Uploaded SVG contains no rectangles" would be very helpful.
+
+Consider more granular error states on the backend. What if the XML is malformed? What if the file is corrupted? Catching these and providing a helpful status: 'error' with a message would be robust.
+
+Testing:
+
+Your CI badges show Codecov, but I don't see a mention of actual tests (Jest, React Testing Library, Supertest) in the README.md. Adding even a few unit tests for the svgProcessor service and key React components would significantly strengthen your project's credibility. It's one of the first things many engineering teams look for.
+
+Scalability Considerations:
+
+Background Processing: For very large SVGs with thousands of rectangles, the synchronous processing on upload could time out (especially in a serverless function). Discussing how you might offload this to a background job queue (like BullMQ with Redis or using a serverless function that triggers another) would show forward-thinking.
+
+Pagination: The "Designs" list currently shows all designs. If a user uploads hundreds of designs, this page will become slow. Adding pagination or infinite scroll on the backend and frontend is a logical next step.
+
+Frontend Polish:
+
+Loading States: While uploading or fetching a design, the UI could show a skeleton screen or a spinner. This is a small detail that greatly improves the perceived performance.
+
+Canvas Scaling: Your current scaling algorithm with 20px padding is good. You could also add an option to "fit to width" or "view at actual size" for more control.
+
+Accessibility (a11y): Consider adding aria-labels to buttons and ensuring the canvas is navigable/describable for screen readers.
+
+API Enhancements:
+
+Add DELETE endpoints for designs.
+
+Add PATCH endpoints to update rectangle properties (which would make the app more of a "design editor").
+
+Implement filtering and sorting on the GET /api/designs endpoint (e.g., ?hasIssues=true, ?sortBy=createdAt).
+
+More Advanced Features:
+
+Support for other SVG shapes (circles, ellipses, paths) as you mentioned in future improvements.
+
+SVG Export: Allow the user to download the processed data (with issues flagged) as a new SVG or a report (JSON/CSV).
+
+User Accounts: Tie designs to specific users for a multi-tenant application.
+
 <a name="future-improvements"></a>🔮 Possible Future Improvements
 Short-term
 Add authentication and user accounts
